@@ -25,11 +25,13 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
     "@types/cors": "^2.8.17",
+    "@types/uuid": "^10.0.0",
     "cors": "^2.8.5",
     "express-session": "^1.18.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "svg-captcha": "^1.4.0"
+    "svg-captcha": "^1.4.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
