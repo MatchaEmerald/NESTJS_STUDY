@@ -7,12 +7,11 @@ import { HttpFilter } from './common/filter';
 import { ValidationPipe } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { Response as NestResponse } from './common/response';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 const whiteList = ['/test', '/upload/album'];
 function middleWareAll(req: Request, res: Response, next: NextFunction) {
-  console.log(req.originalUrl);
-
   if (whiteList.includes(req.originalUrl)) {
     next();
   } else {
@@ -22,6 +21,16 @@ function middleWareAll(req: Request, res: Response, next: NextFunction) {
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  const options = new DocumentBuilder()
+    .addBearerAuth()
+    .setTitle('接口文档')
+    .setDescription('接口文档')
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('/api-docs', app, document);
 
   app.useGlobalFilters(new HttpFilter());
   app.useGlobalPipes(new ValidationPipe());
