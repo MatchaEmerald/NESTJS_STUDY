@@ -3,10 +3,11 @@ import * as cors from 'cors';
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
 import * as session from 'express-session';
-import { Request, Response, NextFunction } from 'express';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { Response as NestResponse } from './common/response';
 import { HttpFilter } from './common/filter';
+import { ValidationPipe } from '@nestjs/common';
+import { Request, Response, NextFunction } from 'express';
+import { Response as NestResponse } from './common/response';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 const whiteList = ['/test', '/upload/album'];
 function middleWareAll(req: Request, res: Response, next: NextFunction) {
@@ -23,6 +24,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.useGlobalFilters(new HttpFilter());
+  app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new NestResponse());
   app.useStaticAssets(join(__dirname, 'images'), { prefix: '/images' });
 
