@@ -28,7 +28,7 @@ export class TestController {
   }
 
   @Get()
-  findAll(@Query() query: any) {
+  findAll(@Query() query: { keyWord: string, page: number, pageSize: number }) {
     return this.testService.findAll(query);
   }
 
