@@ -20,7 +20,7 @@ import * as svgCaptcha from 'svg-captcha';
 
 @Controller('test')
 export class TestController {
-  constructor(private readonly testService: TestService) {}
+  constructor(private readonly testService: TestService) { }
 
   @Post()
   create(@Body() createTestDto: CreateTestDto) {
@@ -28,26 +28,21 @@ export class TestController {
   }
 
   @Get()
-  findAll() {
-    return this.testService.findAll();
+  findAll(@Query() query: any) {
+    return this.testService.findAll(query);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTestDto: UpdateTestDto) {
-    return this.testService.update(+id, updateTestDto);
+    return this.testService.update(id, updateTestDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.testService.remove(+id);
+    return this.testService.remove(id);
   }
 
   @Get('query')
-  // findByQuery(@Request() req: any) {
-  //   console.log(req.query);
-
-  //   return { code: 200 };
-  // }
   findByQuery(@Query() query: any) {
     console.log(query);
 
@@ -55,13 +50,7 @@ export class TestController {
   }
 
   @Post('query')
-  // postQuery(@Request() req: any) {
-  //   console.log(req.body);
-
-  //   return { code: 200 };
-  // }
   postQuery(@Body('name') body: any, @Headers() header: any) {
-    // console.log(body);
     console.log(header);
 
     return { code: 200 };
