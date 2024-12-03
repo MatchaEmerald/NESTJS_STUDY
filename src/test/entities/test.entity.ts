@@ -4,15 +4,14 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   Generated,
+  OneToMany,
 } from 'typeorm';
+import { Tags } from './tags.entity';
 
 @Entity()
 export class Test {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: number;
-
-  @Generated('uuid')
-  uuid: string;
 
   @Column({ type: 'varchar', length: 225 })
   name: string;
@@ -23,26 +22,19 @@ export class Test {
   @CreateDateColumn({ type: 'timestamp' })
   createTime: Date;
 
-  // @Column()
-  // age: number;
-
-  // @Column()
-  // password: string;
-
-
-  // @Column()
-  // updateTime: Date;
-
-  // @Column({
-  //   type: 'enum',
-  //   enum: [1, 2, 3],
-  //   default: 1,
-  // })
-  // xxEnum: number;
-
-  // @Column('simple-array')
-  // tags: string[];
-
-  // @Column('simple-json')
-  // json: { name: string; age: number };
+  @OneToMany(() => Tags, (tags) => tags.test)
+  tags: Tags[];
 }
+
+// @Column({
+//   type: 'enum',
+//   enum: [1, 2, 3],
+//   default: 1,
+// })
+// xxEnum: number;
+
+// @Column('simple-array')
+// tags: string[];
+
+// @Column('simple-json')
+// json: { name: string; age: number };

@@ -20,7 +20,7 @@ import * as svgCaptcha from 'svg-captcha';
 
 @Controller('test')
 export class TestController {
-  constructor(private readonly testService: TestService) { }
+  constructor(private readonly testService: TestService) {}
 
   @Post()
   create(@Body() createTestDto: CreateTestDto) {
@@ -28,7 +28,7 @@ export class TestController {
   }
 
   @Get()
-  findAll(@Query() query: { keyWord: string, page: number, pageSize: number }) {
+  findAll(@Query() query: { keyWord: string; page: number; pageSize: number }) {
     return this.testService.findAll(query);
   }
 
